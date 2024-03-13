@@ -1,0 +1,99 @@
+﻿<Window x:Class="OOO_Modnica.View.Order"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOO_Modnica.View"
+        mc:Ignorable="d"
+        Title="Оформить заказ" Height="500" Width="1000">
+    <Grid>
+        <!--Макет окна-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Заголовок-->
+        <Grid Grid.Row="0" Background="#FFCC6600" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Resources/logo.png" Height="80" Grid.Column="0"/>
+            <TextBlock Text="Описание заказа" Style="{StaticResource Title}" 
+                                Grid.Column="1"/>
+            <Button x:Name="buttonNavigate" Style="{StaticResource Title}" Content="Назад"
+                          Grid.Column="2" HorizontalAlignment="Stretch" Margin="20,0,20,0" 
+                          Height="52" Click="buttonNavigate_Click" />
+        </Grid>
+
+        <!--Функциональная часть-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+
+            <!--ФИО пользователя-->
+            <TextBlock x:Name="FIO" Grid.Column="1" Grid.Row="0" Text="ФИО"
+                                Style="{StaticResource Title}"/>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <TextBlock Text="Оформление заказа" Style="{StaticResource Title}"/>
+                <TextBlock Text="Статус: Новый" Style="{StaticResource Normal}"/>
+                <TextBlock x:Name="tbSumma" Style="{StaticResource Normal}"/>
+                <TextBlock x:Name="tbSummaWithDiscount" Style="{StaticResource Normal}"/>
+                <TextBlock x:Name="tbSummaDiscount" Style="{StaticResource Normal}"/>
+                <TextBlock Text="Пункт выдачи" Style="{StaticResource Normal}"/>
+                <ComboBox Name="cbPoint" 
+                          Style="{StaticResource Normal}" SelectionChanged="cbPoint_SelectionChanged"/>
+                <TextBlock Text="ФИО" Style="{StaticResource Normal}"/>
+                <TextBox x:Name="tbFIO" Style="{StaticResource Normal}" />
+                <Button x:Name="butCreateOrder" Click="butCreateOrder_Click" Content="Оформить заказ" />
+                <TextBox TextWrapping="Wrap" Name="Comment" Text="Комментарий" Width="242" Height="119" Margin="0,10,0,0"/>
+            </StackPanel>
+
+
+            <!--Левая часть-список товаров в заказе-->
+            <ListBox Name="listBoxProductsInOrder" Grid.Column="0" 
+                            HorizontalContentAlignment="Stretch" Margin="0,36,0,0" Grid.RowSpan="2">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Фото товара в заказе-->
+                            <Image Source="{Binding Path = ProductExtendedInOrder.PhotoCorrect}"
+                                   Width="100" Height="100" Stretch="Uniform" Grid.Column="0"/>
+                            <!--Описание товара-->
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <TextBlock Text="{Binding Path=ProductExtendedInOrder.Product.ProductArticle}" Visibility="Collapsed"/>
+                                <TextBlock Text="{Binding Path=ProductExtendedInOrder.Product.ProductName}" Style="{StaticResource Title}"/>
+                                <TextBlock Text="{Binding Path=ProductExtendedInOrder.Product.ProductDescription}" Style="{StaticResource Normal}"/>
+                                <TextBlock Text="{Binding Path=ProductExtendedInOrder.Product.Manufacture.ManufacturerName, StringFormat=Производитель: {0}}" Style="{StaticResource Normal}"/>
+                                <TextBlock Text="{Binding Path=ProductExtendedInOrder.Product.ProductCost, StringFormat=Цена: {0} руб.}" Style="{StaticResource Normal}"/>
+                                <TextBlock Text="{Binding Path=ProductExtendedInOrder.Product.ProductDiscountCurrent, StringFormat=Скидка: {0} %}" Style="{StaticResource Normal}"/>
+                                <TextBlock Text="{Binding Path=ProductExtendedInOrder.ProductCostWithDiscount, StringFormat=Цена со скидкой: {0} руб.}" Style="{StaticResource Normal}"/>
+                            </StackPanel>
+
+                            <!--Управление количеством товара в заказе-->
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" 
+                                                 VerticalAlignment="Center" Grid.Column="2">
+                                <TextBox Text="{Binding countProductInOrder}" 
+                                                              Style="{StaticResource Title}" TextChanged="tbCount_TextChanged"/>
+                                <Button x:Name="butDeleteProduct" Click="butDel_Click" Content="Удалить товар"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</Window>

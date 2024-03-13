@@ -1,0 +1,69 @@
+﻿<Window x:Class="OOO_Modnica.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OOO_Modnica"
+        xmlns:easy="clr-namespace:EasyCaptcha.Wpf;assembly=EasyCaptcha.Wpf"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="450" Width="800" Icon="/Resources/icon.ico" MinWidth="800" MinHeight="450">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Заголовок-->
+        <Grid Grid.Row="0" Background="#FFE8D7FF" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Resources/logo.png" Height="80" Grid.Column="0" Opacity="0.85"/>
+            <TextBlock Text="Авторизация" Style="{StaticResource Title}" Grid.Column="1" 
+                                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button x:Name="buttonNavigate" Style="{StaticResource Title}" Content="Выход"
+                          Grid.Column="2" Margin="20 10" Background="#F1C6DB" Click="buttonNavigate_Click"/>
+        </Grid>
+
+        <!--Содержательная часть-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" Text="Логин" Style="{StaticResource Normal}" 
+                                HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,5"/>
+            <TextBlock Grid.Row="2" Text="Пароль" Style="{StaticResource Normal}" 
+                                HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,5"/>
+            <easy:Captcha Grid.Row="3" x:Name="MyCaptcha" Width="200" Height="50"/>
+            <TextBox Name="textBoxLogin"  Style="{StaticResource Normal}" Grid.Column="1"
+                             Grid.Row="1" Text="loginDEppn2018" HorizontalAlignment="Stretch" 
+                             VerticalAlignment="Stretch" Margin="20,10" TextChanged="textBoxLogin_TextChanged"/>
+            <TextBox Name="textBlockPassword" Style="{StaticResource Normal}" Grid.Column="1" 
+                             Grid.Row="2" Text="6}i+FD" HorizontalAlignment="Stretch" 
+                             VerticalAlignment="Stretch" Margin="20,10" TextChanged="textBlockPassword_TextChanged"/>
+            <Button Name="buttonGuest" Style="{StaticResource Title}" Content="Гость" Grid.Row="4" 
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20 10" 
+                          Background="#F1C6DB" Click="buttonGuest_Click"/>
+            <Button Name="buttonInput" Style="{StaticResource Title}" Grid.Column="1" 
+                          Content="Войти" Grid.Row="4" HorizontalAlignment="Stretch" 
+                         VerticalAlignment="Stretch" Margin="20 10" Background="#F1C6DB" Click="buttonInput_Click_1"/>
+            <TextBox x:Name="captcha" Style="{StaticResource Normal}" Grid.Column="1" 
+                Grid.Row="3" Text="" Margin="20,10,20,10"/>
+        </Grid>
+
+
+
+    </Grid>
+</Window>
